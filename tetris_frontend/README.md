@@ -1,82 +1,72 @@
-# Lightweight React Template for KAVIA
+# React Tetris – Ocean Professional
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A browser-based Tetris game built with React. Play at http://localhost:3000. Modern UI with the Ocean Professional theme (blue primary, amber accents), subtle gradients and shadows, responsive layout, and keyboard controls.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Playable Tetris with:
+  - 10x20 board, falling tetrominoes, rotation, ghost piece
+  - Line clearing, scoring, level progression (every 10 lines)
+  - Next queue (5) with 7-bag generator
+  - Hold piece with swap rules
+  - Pause and Reset controls
+  - Keyboard controls and on-screen buttons
+- Responsive layout:
+  - Centered board
+  - Sidebar with score/level/lines, next, hold
+  - Stacks on mobile, side panels on wide screens
+- Themed using Ocean Professional palette: primary #2563EB, secondary #F59E0B
 
-## Getting Started
+## Run the app
 
-In the project directory, you can run:
+From the tetris_frontend directory:
 
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```
+npm install
+npm start
 ```
 
-### Components
+Open http://localhost:3000.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+## Controls
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+- Left/Right arrows or A/D: Move piece
+- Down arrow or S: Soft drop
+- Up arrow, W, or X: Rotate
+- Space: Hard drop
+- Shift or C: Hold/swap
+- P: Pause/Resume
+- Reset button: Restart game
 
-## Learn More
+## Environment variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app respects (if provided):
 
-### Code Splitting
+- REACT_APP_NODE_ENV
+- REACT_APP_FEATURE_FLAGS
+- REACT_APP_EXPERIMENTS_ENABLED
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Add them to your .env to toggle behavior at runtime. Example:
 
-### Analyzing the Bundle Size
+```
+REACT_APP_NODE_ENV=development
+REACT_APP_FEATURE_FLAGS=next,hold
+REACT_APP_EXPERIMENTS_ENABLED=false
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project structure
 
-### Making a Progressive Web App
+- src/Game.jsx – Main game container
+- src/hooks/useTetris.js – Game logic: loop, movement, scoring, levels
+- src/utils/tetrominoes.js – Shapes, rotations, 7-bag generator
+- src/components/Board.jsx, Cell.jsx – Board rendering
+- src/components/Sidebar.jsx – Stats, Next, Hold
+- src/components/Controls.jsx – Action buttons
+- src/tetris.css – Theme and layout styles
+- src/App.js – Entry component that renders Game
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Notes
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- No external UI libraries; pure React and CSS
+- Game loop uses requestAnimationFrame and drops based on level speed
+- 7-bag generator ensures fair distribution
